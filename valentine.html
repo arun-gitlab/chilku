@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -490,19 +491,7 @@
             const errorMsg = document.getElementById('errorMessage');
             const password = input.value;
 
-            // Simple hash function to hide the password from source code
-            function simpleHash(str) {
-                let hash = 0;
-                for (let i = 0; i < str.length; i++) {
-                    const char = str.charCodeAt(i);
-                    hash = ((hash << 5) - hash) + char;
-                    hash = hash & hash;
-                }
-                return hash;
-            }
-
-            // The correct password hash for "April" is: 63478374
-            if (simpleHash(password) === 63478374) {
+            if (password === 'April') {
                 // Correct password - hide password screen and show main content
                 document.getElementById('passwordContainer').style.display = 'none';
                 document.getElementById('mainContainer').style.display = 'block';
