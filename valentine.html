@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Question 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,8 +14,8 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -28,7 +30,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -41,60 +43,72 @@
         }
 
         .password-box {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             padding: 50px 60px;
-            border-radius: 25px;
-            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            border-radius: 30px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
             text-align: center;
             max-width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .password-box h2 {
-            color: #ff1493;
-            font-size: 2em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.2em;
             margin-bottom: 30px;
+            font-family: 'Playfair Display', serif;
         }
 
         .password-box input {
             width: 100%;
             max-width: 300px;
             padding: 15px 20px;
-            font-size: 1.2em;
-            border: 2px solid #ffb6d9;
-            border-radius: 10px;
+            font-size: 1.1em;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
             margin-bottom: 20px;
             outline: none;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
             cursor: text !important;
+            font-family: 'Poppins', sans-serif;
         }
 
         .password-box input:focus {
-            border-color: #ff1493;
+            border-color: #764ba2;
+            box-shadow: 0 0 0 4px rgba(118, 75, 162, 0.1);
         }
 
         .password-box button {
             width: 100%;
             max-width: 300px;
             padding: 15px 20px;
-            font-size: 1.2em;
-            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            font-size: 1.1em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             cursor: pointer !important;
-            font-weight: bold;
-            transition: transform 0.2s;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);
+            font-family: 'Poppins', sans-serif;
         }
 
         .password-box button:hover {
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(118, 75, 162, 0.4);
         }
 
         .error-message {
-            color: #ff1493;
+            color: #764ba2;
             margin-top: 15px;
-            font-size: 1em;
+            font-size: 0.95em;
             min-height: 20px;
+            font-weight: 500;
         }
 
         /* Mobile Responsive Styles */
@@ -138,6 +152,23 @@
             }
         }
 
+        /* Custom Heart Cursor */
+        #mainContainer {
+            cursor: none;
+        }
+
+        #mainContainer * {
+            cursor: none;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            pointer-events: none;
+            font-size: 24px;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-10px); }
@@ -164,13 +195,15 @@
 
         .container {
             text-align: center;
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             padding: 60px 80px;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            border-radius: 35px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 10;
             max-width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         /* Custom cursor only in main container */
@@ -183,11 +216,15 @@
         }
 
         h1 {
-            font-size: 2.5em;
-            color: #ff1493;
+            font-size: 2.8em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 40px;
-            font-weight: bold;
-            line-height: 1.2;
+            font-weight: 700;
+            line-height: 1.3;
+            font-family: 'Playfair Display', serif;
         }
 
         /* Loading bar */
@@ -198,7 +235,7 @@
         .loading-bar {
             width: 100%;
             height: 30px;
-            background: #f0f0f0;
+            background: #f5f5f5;
             border-radius: 15px;
             overflow: hidden;
             margin-bottom: 10px;
@@ -206,7 +243,7 @@
 
         .loading-fill {
             height: 100%;
-            background: linear-gradient(90deg, #ff1493, #ff69b4);
+            background: linear-gradient(90deg, #667eea, #764ba2);
             width: 0%;
             transition: width 0.3s ease;
             display: flex;
@@ -214,13 +251,17 @@
             justify-content: flex-end;
             padding-right: 10px;
             color: white;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         .loading-hint {
-            font-size: 1.1em;
-            color: #ff1493;
+            font-size: 1em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-style: italic;
+            font-weight: 500;
         }
 
         .buttons {
@@ -232,14 +273,15 @@
         }
 
         button {
-            padding: 20px 50px;
-            font-size: 1.5em;
+            padding: 18px 45px;
+            font-size: 1.3em;
             border: none;
-            border-radius: 15px;
+            border-radius: 20px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            font-family: 'Poppins', sans-serif;
         }
 
         /* Mobile Responsive Styles for Main Content */
@@ -272,24 +314,26 @@
         }
 
         .yes-btn {
-            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             transform: scale(1);
         }
 
         .yes-btn:hover {
-            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(118, 75, 162, 0.4);
         }
 
         .no-btn {
-            background: linear-gradient(135deg, #ddd 0%, #bbb 100%);
-            color: #333;
+            background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%);
+            color: #666;
             transform: scale(1);
         }
 
         .no-btn:hover {
-            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            box-shadow: 0 12px 30px rgba(118, 75, 162, 0.3);
         }
 
         .heart {
@@ -324,10 +368,15 @@
 
         .gallery-title {
             font-size: 2.5em;
-            color: #ff1493;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 30px;
             animation: pulse 1s infinite;
             padding: 0 20px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
         }
 
         .slideshow {
@@ -335,10 +384,11 @@
             max-width: 600px;
             height: 450px;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
+            border-radius: 25px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             position: relative;
+            border: 2px solid rgba(255, 255, 255, 0.5);
         }
 
         .slide {
@@ -374,10 +424,14 @@
             left: 0;
             right: 0;
             text-align: center;
-            font-size: 0.4em;
-            color: #ff1493;
-            font-weight: bold;
-            padding: 0 10px;
+            font-size: 1.3em;
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            z-index: 10;
+            font-family: 'Poppins', sans-serif;
+            backdrop-filter: blur(10px);
         }
 
         /* Mobile Responsive Styles for Gallery */
@@ -397,8 +451,9 @@
             }
 
             .slide-caption {
-                font-size: 0.35em;
+                font-size: 1em;
                 bottom: 10px;
+                padding: 8px 15px;
             }
         }
 
@@ -443,11 +498,6 @@
         </div>
     </div>
 
-    <!-- Photo Gallery -->
-    <div class="gallery-container" id="gallery">
-        <div class="gallery-title">Our Beautiful Moments Together 💕</div>
-        <div class="slideshow" id="slideshow">
-
     <!-- Background Music -->
     <audio id="backgroundMusic" loop>
         <source src="music.mp3" type="audio/mpeg">
@@ -459,23 +509,23 @@
         <div class="slideshow" id="slideshow">
             <div class="slide active">
                 <img src="photo1.jpeg" alt="Our First Date">
-                <div class="slide-caption">Our First Date</div>
+                <div class="slide-caption">Tere nalon sonya koi v vekhya na</div>
             </div>
             <div class="slide">
                 <img src="photo2.jpeg" alt="That Amazing Day">
-                <div class="slide-caption">That Amazing Day</div>
+                <div class="slide-caption">Meri surat bhulati</div>
             </div>
             <div class="slide">
                 <img src="photo3.jpeg" alt="Special Memories">
-                <div class="slide-caption">Special Memories</div>
+                <div class="slide-caption">Tere naa de</div>
             </div>
             <div class="slide">
                 <img src="photo4.jpeg" alt="Forever Together">
-                <div class="slide-caption">Forever Together</div>
+                <div class="slide-caption">Akhar ne</div>
             </div>
             <div class="slide">
                 <img src="photo5.jpeg" alt="I Love You">
-                <div class="slide-caption">I Love You!</div>
+                <div class="slide-caption">Aithe koi na milda aape rab milonda h</div>
             </div>
         </div>
     </div>
@@ -495,7 +545,7 @@
                 document.getElementById('passwordContainer').style.display = 'none';
                 document.getElementById('mainContainer').style.display = 'block';
                 
-                // Enable sparkle cursor
+                // Enable heart cursor
                 sparkleEnabled = true;
                 
                 // Play background music
@@ -552,19 +602,18 @@
             }
         }
 
-        // Sparkle cursor effect (only when enabled)
+        // Custom heart cursor that follows mouse (only when enabled)
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        cursor.textContent = '💖';
+        document.body.appendChild(cursor);
+        cursor.style.display = 'none'; // Hidden by default
+
         document.addEventListener('mousemove', (e) => {
-            if (!sparkleEnabled) return; // Don't show sparkles before password unlock
-            
-            if (Math.random() > 0.8) { // Don't create sparkle every time
-                const sparkle = document.createElement('div');
-                sparkle.className = 'cursor-sparkle';
-                sparkle.textContent = ['✨', '💖', '💕', '⭐'][Math.floor(Math.random() * 4)];
-                sparkle.style.left = e.pageX + 'px';
-                sparkle.style.top = e.pageY + 'px';
-                document.body.appendChild(sparkle);
-                
-                setTimeout(() => sparkle.remove(), 1000);
+            if (sparkleEnabled) {
+                cursor.style.display = 'block';
+                cursor.style.left = e.pageX + 'px';
+                cursor.style.top = e.pageY + 'px';
             }
         });
 
