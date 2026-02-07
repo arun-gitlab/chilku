@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Question 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            cursor: none;
+        }
+
+        /* Password Screen Styles */
+        .password-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .password-box {
+            background: white;
+            padding: 50px 60px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            text-align: center;
+            max-width: 90%;
+        }
+
+        .password-box h2 {
+            color: #ff1493;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        .password-box input {
+            width: 100%;
+            max-width: 300px;
+            padding: 15px 20px;
+            font-size: 1.2em;
+            border: 2px solid #ffb6d9;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .password-box input:focus {
+            border-color: #ff1493;
+        }
+
+        .password-box button {
+            width: 100%;
+            max-width: 300px;
+            padding: 15px 20px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .password-box button:hover {
+            transform: scale(1.05);
+        }
+
+        .error-message {
+            color: #ff1493;
+            margin-top: 15px;
+            font-size: 1em;
+            min-height: 20px;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                cursor: auto; /* Show normal cursor on mobile */
+            }
+
+            .password-box {
+                padding: 30px 25px;
+            }
+
+            .password-box h2 {
+                font-size: 1.5em;
+            }
+
+            .password-box input,
+            .password-box button {
+                font-size: 1em;
+            }
+        }
+
+        /* Sparkle Cursor */
+        .cursor-sparkle {
+            position: fixed;
+            pointer-events: none;
+            font-size: 20px;
+            z-index: 9999;
+            animation: sparkle 1s ease-out forwards;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Floating background hearts */
+        .floating-heart {
+            position: fixed;
+            font-size: 25px;
+            opacity: 0.3;
+            animation: float 10s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-50px) rotate(10deg);
+            }
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 60px 80px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            position: relative;
+            z-index: 10;
+            max-width: 90%;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #ff1493;
+            margin-bottom: 40px;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        /* Loading bar */
+        .loading-container {
+            margin-bottom: 30px;
+        }
+
+        .loading-bar {
+            width: 100%;
+            height: 30px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .loading-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff1493, #ff69b4);
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .loading-hint {
+            font-size: 1.1em;
+            color: #ff1493;
+            font-style: italic;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 20px 50px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Responsive Styles for Main Content */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 25px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 25px;
+            }
+
+            .loading-hint {
+                font-size: 0.9em;
+            }
+
+            .buttons {
+                gap: 15px;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            button {
+                padding: 15px 30px;
+                font-size: 1.2em;
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+            transform: scale(1);
+        }
+
+        .yes-btn:hover {
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #ddd 0%, #bbb 100%);
+            color: #333;
+            transform: scale(1);
+        }
+
+        .no-btn:hover {
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+        }
+
+        .heart {
+            position: fixed;
+            font-size: 30px;
+            animation: fall linear forwards;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Photo Gallery */
+        .gallery-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .gallery-title {
+            font-size: 2.5em;
+            color: #ff1493;
+            margin-bottom: 30px;
+            animation: pulse 1s infinite;
+            padding: 0 20px;
+        }
+
+        .slideshow {
+            width: 90%;
+            max-width: 600px;
+            height: 450px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: #ff69b4;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+        }
+
+        .slide.active {
+            display: flex;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.4em;
+            color: #ff1493;
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        /* Mobile Responsive Styles for Gallery */
+        @media (max-width: 768px) {
+            .gallery-title {
+                font-size: 1.5em;
+                margin-bottom: 20px;
+            }
+
+            .slideshow {
+                width: 90%;
+                height: 300px;
+            }
+
+            .slide {
+                font-size: 3em;
+            }
+
+            .slide-caption {
+                font-size: 0.35em;
+                bottom: 10px;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Screen -->
+    <div class="password-container" id="passwordContainer">
+        <div class="password-box">
+            <h2>🔒 Enter Password</h2>
+            <input type="password" id="passwordInput" placeholder="Enter password..." />
+            <button onclick="checkPassword()">Unlock</button>
+            <div class="error-message" id="errorMessage"></div>
+        </div>
+    </div>
+
+    <!-- Floating background hearts -->
+    <div id="floatingHearts"></div>
+
+    <div class="container" id="mainContainer" style="display: none;">
+        <h1>Will you be my Valentine Chilku baby? 💖</h1>
+        
+        <!-- Loading Bar -->
+        <div class="loading-container">
+            <div class="loading-bar">
+                <div class="loading-fill" id="loadingFill"></div>
+            </div>
+            <div class="loading-hint">💡 Hint: Say yes!</div>
+        </div>
+
+        <div class="buttons">
+            <button class="yes-btn" id="yesBtn" onclick="sayYes()">Yes</button>
+            <button class="no-btn" id="noBtn" onmouseover="growYesButton()" onmouseout="resetText(this)">No</button>
+        </div>
+    </div>
+
+    <!-- Photo Gallery -->
+    <div class="gallery-container" id="gallery">
+        <div class="gallery-title">Our Beautiful Moments Together 💕</div>
+        <div class="slideshow" id="slideshow">
+            <div class="slide active">
+                📸
+                <div class="slide-caption">Photo 1: Our First Date</div>
+            </div>
+            <div class="slide">
+                📷
+                <div class="slide-caption">Photo 2: That Amazing Day</div>
+            </div>
+            <div class="slide">
+                🎆
+                <div class="slide-caption">Photo 3: Special Memories</div>
+            </div>
+            <div class="slide">
+                🌟
+                <div class="slide-caption">Photo 4: Forever Together</div>
+            </div>
+            <div class="slide">
+                💖
+                <div class="slide-caption">Photo 5: I Love You!</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password check function
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const errorMsg = document.getElementById('errorMessage');
+            const password = input.value;
+
+            if (password === 'April') {
+                // Correct password - hide password screen and show main content
+                document.getElementById('passwordContainer').style.display = 'none';
+                document.getElementById('mainContainer').style.display = 'block';
+                
+                // Enable custom cursor only on desktop
+                if (window.innerWidth > 768) {
+                    document.body.style.cursor = 'none';
+                }
+                
+                createFloatingHearts();
+            } else {
+                // Wrong password - show error
+                errorMsg.textContent = '❌ Wrong password! Try again...';
+                input.value = '';
+                input.style.borderColor = '#ff1493';
+                
+                // Shake animation
+                input.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    input.style.animation = '';
+                }, 500);
+            }
+        }
+
+        // Allow Enter key to submit password
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('passwordInput');
+            if (input) {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+            }
+        });
+
+        // Button scaling variables
+        let yesScale = 1;
+        let noScale = 1;
+        let hoverCount = 0;
+
+        // Initialize floating background hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = ['💕', '💖', '💗'][Math.floor(Math.random() * 3)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Sparkle cursor effect (disabled on mobile)
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                if (Math.random() > 0.8) { // Don't create sparkle every time
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'cursor-sparkle';
+                    sparkle.textContent = ['✨', '💖', '💕', '⭐'][Math.floor(Math.random() * 4)];
+                    sparkle.style.left = e.pageX + 'px';
+                    sparkle.style.top = e.pageY + 'px';
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => sparkle.remove(), 1000);
+                }
+            });
+        } else {
+            // Enable normal cursor on mobile
+            document.body.style.cursor = 'auto';
+        }
+
+        // Growing Yes button and shrinking No button
+        function growYesButton() {
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            
+            hoverCount++;
+            yesScale += 0.2;
+            noScale = Math.max(0.3, noScale - 0.15);
+            
+            yesBtn.style.transform = `scale(${yesScale})`;
+            noBtn.style.transform = `scale(${noScale})`;
+            noBtn.textContent = 'Say Yes';
+            
+            // Update loading bar
+            const loadingFill = document.getElementById('loadingFill');
+            const progress = Math.min(100, hoverCount * 10);
+            loadingFill.style.width = progress + '%';
+            if (progress >= 30) {
+                loadingFill.textContent = progress + '%';
+            }
+        }
+
+        function resetText(btn) {
+            btn.textContent = 'No';
+        }
+
+        function sayYes() {
+            // Hide main container
+            document.getElementById('mainContainer').style.display = 'none';
+            
+            // Show photo gallery
+            const gallery = document.getElementById('gallery');
+            gallery.style.display = 'flex';
+            
+            // Start slideshow
+            startSlideshow();
+            
+            // Create heart rain
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createHeart();
+                }, i * 100);
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = ['❤️', '💕', '💖', '💗', '💓', '💝'][Math.floor(Math.random() * 6)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Slideshow functionality
+        let currentSlide = 0;
+        function startSlideshow() {
+            const slides = document.querySelectorAll('.slide');
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 3000); // Change slide every 3 seconds
+        }
+
+        // Initialize on page load - removed because page starts locked with password
+    </script>
+</body>
+</html>
