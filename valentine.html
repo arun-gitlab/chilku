@@ -20,7 +20,6 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            cursor: none;
         }
 
         /* Password Screen Styles */
@@ -95,8 +94,9 @@
 
         /* Mobile Responsive Styles */
         @media (max-width: 768px) {
-            body {
-                cursor: auto; /* Show normal cursor on mobile */
+            #mainContainer,
+            #mainContainer * {
+                cursor: auto !important;
             }
 
             .password-box {
@@ -166,6 +166,15 @@
             position: relative;
             z-index: 10;
             max-width: 90%;
+        }
+
+        /* Custom cursor only in main container */
+        #mainContainer {
+            cursor: none;
+        }
+
+        #mainContainer * {
+            cursor: none;
         }
 
         h1 {
@@ -333,8 +342,15 @@
             display: none;
             align-items: center;
             justify-content: center;
-            font-size: 4em;
-            color: #ff69b4;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
         }
 
         .slide.active {
@@ -426,19 +442,24 @@
     <div class="gallery-container" id="gallery">
         <div class="gallery-title">Our Beautiful Moments Together 💕</div>
         <div class="slideshow" id="slideshow">
-            <div class="slide active" style="background-image: url('photo1.jpeg'); background-size: cover; background-position: center;">
+            <div class="slide active">
+                <img src="photo1.jpeg" alt="Our First Date">
                 <div class="slide-caption">Our First Date</div>
             </div>
-            <div class="slide" style="background-image: url('photo2.jpeg'); background-size: cover; background-position: center;">
+            <div class="slide">
+                <img src="photo2.jpeg" alt="That Amazing Day">
                 <div class="slide-caption">That Amazing Day</div>
             </div>
-            <div class="slide" style="background-image: url('photo3.jpeg'); background-size: cover; background-position: center;">
+            <div class="slide">
+                <img src="photo3.jpeg" alt="Special Memories">
                 <div class="slide-caption">Special Memories</div>
             </div>
-            <div class="slide" style="background-image: url('photo4.jpeg'); background-size: cover; background-position: center;">
+            <div class="slide">
+                <img src="photo4.jpeg" alt="Forever Together">
                 <div class="slide-caption">Forever Together</div>
             </div>
-            <div class="slide" style="background-image: url('photo5.jpeg'); background-size: cover; background-position: center;">
+            <div class="slide">
+                <img src="photo5.jpeg" alt="I Love You">
                 <div class="slide-caption">I Love You!</div>
             </div>
         </div>
@@ -455,11 +476,6 @@
                 // Correct password - hide password screen and show main content
                 document.getElementById('passwordContainer').style.display = 'none';
                 document.getElementById('mainContainer').style.display = 'block';
-                
-                // Enable custom cursor only on desktop
-                if (window.innerWidth > 768) {
-                    document.body.style.cursor = 'none';
-                }
                 
                 createFloatingHearts();
             } else {
@@ -508,24 +524,19 @@
             }
         }
 
-        // Sparkle cursor effect (disabled on mobile)
-        if (window.innerWidth > 768) {
-            document.addEventListener('mousemove', (e) => {
-                if (Math.random() > 0.8) { // Don't create sparkle every time
-                    const sparkle = document.createElement('div');
-                    sparkle.className = 'cursor-sparkle';
-                    sparkle.textContent = ['✨', '💖', '💕', '⭐'][Math.floor(Math.random() * 4)];
-                    sparkle.style.left = e.pageX + 'px';
-                    sparkle.style.top = e.pageY + 'px';
-                    document.body.appendChild(sparkle);
-                    
-                    setTimeout(() => sparkle.remove(), 1000);
-                }
-            });
-        } else {
-            // Enable normal cursor on mobile
-            document.body.style.cursor = 'auto';
-        }
+        // Sparkle cursor effect
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.8) { // Don't create sparkle every time
+                const sparkle = document.createElement('div');
+                sparkle.className = 'cursor-sparkle';
+                sparkle.textContent = ['✨', '💖', '💕', '⭐'][Math.floor(Math.random() * 4)];
+                sparkle.style.left = e.pageX + 'px';
+                sparkle.style.top = e.pageY + 'px';
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 1000);
+            }
+        });
 
         // Growing Yes button and shrinking No button
         function growYesButton() {
