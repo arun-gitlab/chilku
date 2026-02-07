@@ -435,27 +435,37 @@
         }
 
         /* Mobile Responsive Styles for Gallery */
-        @media (max-width: 768px) {
-            .gallery-title {
-                font-size: 1.5em;
-                margin-bottom: 20px;
-            }
+       /* Mobile Responsive Styles for Gallery */
+@media (max-width: 768px) {
+    .gallery-title {
+        font-size: 1.4em; /* Slightly smaller title */
+        margin-bottom: 15px;
+    }
 
-            .slideshow {
-                width: 90%;
-                height: 300px;
-            }
+    .slideshow {
+        width: 95%; /* Use more width on mobile */
+        height: 300px;
+    }
 
-            .slide {
-                font-size: 3em;
-            }
+    .slide-caption {
+        font-size: 0.75rem; /* Smaller, fixed font size */
+        bottom: 0;         /* Stick it to the bottom to save image space */
+        padding: 8px 10px; /* Thinner padding */
+        font-weight: 500;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
+    }
+}
 
-            .slide-caption {
-                font-size: 0.85em;
-                bottom: 5px;
-                padding: 6px 12px;
-            }
-        }
+/* Extra small devices (phones in portrait) */
+@media (max-width: 480px) {
+    .slideshow {
+        height: 250px; /* Shorten the box so the title/caption fit on one screen */
+    }
+    
+    .gallery-title {
+        font-size: 1.1em;
+    }
+}
 
         @keyframes pulse {
             0%, 100% {
