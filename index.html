@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chilku Baby 💕</title>
+    <!-- Favicon - page icon -->
+    <link rel="icon" type="image/jpeg" href="photo5.jpeg">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -227,43 +229,6 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Loading bar */
-        .loading-container {
-            margin-bottom: 30px;
-        }
-
-        .loading-bar {
-            width: 100%;
-            height: 30px;
-            background: #f5f5f5;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .loading-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            width: 0%;
-            transition: width 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 10px;
-            color: white;
-            font-weight: 600;
-        }
-
-        .loading-hint {
-            font-size: 1em;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-style: italic;
-            font-weight: 500;
-        }
-
         .buttons {
             display: flex;
             gap: 30px;
@@ -293,10 +258,6 @@
             h1 {
                 font-size: 1.5em;
                 margin-bottom: 25px;
-            }
-
-            .loading-hint {
-                font-size: 0.9em;
             }
 
             .buttons {
@@ -359,7 +320,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.98);
+            /* Beautiful gradient background instead of plain white */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -368,10 +330,8 @@
 
         .gallery-title {
             font-size: 2.5em;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: white;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             margin-bottom: 30px;
             animation: pulse 1s infinite;
             padding: 0 20px;
@@ -385,10 +345,10 @@
             height: 450px;
             background: white;
             border-radius: 25px;
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
             overflow: hidden;
             position: relative;
-            border: 2px solid rgba(255, 255, 255, 0.5);
+            border: 3px solid rgba(255, 255, 255, 0.8);
         }
 
         .slide {
@@ -399,13 +359,33 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Blurred background layer */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-image: inherit;
+            filter: blur(20px);
+            transform: scale(1.1);
+            z-index: 1;
         }
 
         .slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             object-position: center;
+            position: relative;
+            z-index: 2;
         }
 
         .slide.active {
@@ -428,51 +408,50 @@
             color: white;
             font-weight: 600;
             padding: 10px 20px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
             z-index: 10;
             font-family: 'Poppins', sans-serif;
             backdrop-filter: blur(10px);
         }
 
         /* Mobile Responsive Styles for Gallery */
-       /* Mobile Responsive Styles for Gallery */
-@media (max-width: 768px) {
-    .gallery-title {
-        font-size: 1.4em; /* Slightly smaller title */
-        margin-bottom: 15px;
-    }
+        @media (max-width: 768px) {
+            .gallery-title {
+                font-size: 1.4em;
+                margin-bottom: 15px;
+            }
 
-    .slideshow {
-        width: 95%; /* Use more width on mobile */
-        height: 300px;
-    }
+            .slideshow {
+                width: 95%;
+                height: 300px;
+            }
 
-    .slide-caption {
-        font-size: 0.75rem; /* Smaller, fixed font size */
-        bottom: 0;         /* Stick it to the bottom to save image space */
-        padding: 8px 10px; /* Thinner padding */
-        font-weight: 500;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
-    }
-}
+            .slide-caption {
+                font-size: 0.75rem;
+                bottom: 0;
+                padding: 8px 10px;
+                font-weight: 500;
+                background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
+            }
+        }
 
-/* Extra small devices (phones in portrait) */
-@media (max-width: 480px) {
-    .slideshow {
-        height: 250px; /* Shorten the box so the title/caption fit on one screen */
-    }
-    
-    .gallery-title {
-        font-size: 1.1em;
-    }
-}
+        /* Extra small devices (phones in portrait) */
+        @media (max-width: 480px) {
+            .slideshow {
+                height: 250px;
+            }
+            
+            .gallery-title {
+                font-size: 1.1em;
+            }
+        }
 
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
             }
             50% {
-                transform: scale(1.1);
+                transform: scale(1.05);
             }
         }
     </style>
@@ -493,18 +472,10 @@
 
     <div class="container" id="mainContainer" style="display: none;">
         <h1>Will you be my Valentine Chilku baby? 💖</h1>
-        
-        <!-- Loading Bar -->
-        <div class="loading-container">
-            <div class="loading-bar">
-                <div class="loading-fill" id="loadingFill"></div>
-            </div>
-            <div class="loading-hint">💡 Hint: Say yes!</div>
-        </div>
 
         <div class="buttons">
             <button class="yes-btn" id="yesBtn" onclick="sayYes()">Yes</button>
-            <button class="no-btn" id="noBtn" onmouseover="growYesButton()" onmouseout="resetText(this)">No</button>
+            <button class="no-btn" id="noBtn" onclick="sayNo()" onmouseover="growYesButton()" onmouseout="resetText(this)">No</button>
         </div>
     </div>
 
@@ -517,59 +488,59 @@
     <div class="gallery-container" id="gallery">
         <div class="gallery-title">Thank you for everything Chilkis 💕</div>
         <div class="slideshow" id="slideshow">
-            <div class="slide active">
+            <div class="slide active" style="background-image: url('photo1.jpeg');">
                 <img src="photo1.jpeg" alt="Our First Date">
                 <div class="slide-caption">You are Awesome!!!</div>
             </div>
-            <div class="slide">
+            <div class="slide" style="background-image: url('photo2.jpeg');">
                 <img src="photo2.jpeg" alt="That Amazing Day">
                 <div class="slide-caption">Your smile is a blessing</div>
             </div>
-            <div class="slide">
+            <div class="slide" style="background-image: url('photo3.jpeg');">
                 <img src="photo3.jpeg" alt="Special Memories">
                 <div class="slide-caption">A moment with you is heavenly</div>
             </div>
-            <div class="slide">
+            <div class="slide" style="background-image: url('photo4.jpeg');">
                 <img src="photo4.jpeg" alt="Forever Together">
                 <div class="slide-caption">Aithe koi na milda</div>
             </div>
-            <div class="slide">
+            <div class="slide" style="background-image: url('photo5.jpeg');">
                 <img src="photo5.jpeg" alt="I Love You">
                 <div class="slide-caption">Aape rabb milonda ae!</div>
             </div>
-             <div class="slide active">
+            <div class="slide" style="background-image: url('photo6.jpeg');">
                 <img src="photo6.jpeg" alt="Our First Date">
                 <div class="slide-caption">You are Beautiful!!!</div>
             </div>
-            <div class="slide">
+            <div class="slide" style="background-image: url('photo7.jpeg');">
                 <img src="photo7.jpeg" alt="That Amazing Day">
                 <div class="slide-caption">I can spend all my life</div>
             </div>
-            <div class="slide">
+            <div class="slide" style="background-image: url('photo8.jpeg');">
                 <img src="photo8.jpeg" alt="Special Memories">
                 <div class="slide-caption">looking at you</div>
             </div>
-            <div class="slide">
+            <div class="slide" style="background-image: url('photo9.jpeg');">
                 <img src="photo9.jpeg" alt="Forever Together">
                 <div class="slide-caption">You are gift</div>
             </div>
-            <div class="slide">
+            <div class="slide" style="background-image: url('photo10.jpeg');">
                 <img src="photo10.jpeg" alt="I Love You">
                 <div class="slide-caption">You are the life</div>
             </div>
-             <div class="slide active">
+            <div class="slide" style="background-image: url('photo11.jpeg');">
                 <img src="photo11.jpeg" alt="Our First Date">
                 <div class="slide-caption">You are the blossoming flowers</div>
             </div>
-            <div class="slide">
+            <div class="slide" style="background-image: url('photo12.jpeg');">
                 <img src="photo12.jpeg" alt="That Amazing Day">
                 <div class="slide-caption">You are everything</div>
             </div>
-            <div class="slide">
+            <div class="slide" style="background-image: url('photo5.jpeg');">
                 <img src="photo5.jpeg" alt="Forever Together">
                 <div class="slide-caption">And the best part...</div>
             </div>
-            <div class="slide">
+            <div class="slide" style="background-image: url('photox.jpeg');">
                 <img src="photox.jpeg" alt="I Love You">
                 <div class="slide-caption">You are mine!!!!!</div>
             </div>
@@ -690,18 +661,14 @@
             yesBtn.style.transform = `scale(${yesScale})`;
             noBtn.style.transform = `scale(${noScale})`;
             noBtn.textContent = 'Say Yes';
-            
-            // Update loading bar
-            const loadingFill = document.getElementById('loadingFill');
-            const progress = Math.min(100, hoverCount * 10);
-            loadingFill.style.width = progress + '%';
-            if (progress >= 30) {
-                loadingFill.textContent = progress + '%';
-            }
         }
 
         function resetText(btn) {
             btn.textContent = 'No';
+        }
+
+        function sayNo() {
+            alert('Oh come on Chilku baby, pleeeeeezeeee say yes !!');
         }
 
         function sayYes() {
