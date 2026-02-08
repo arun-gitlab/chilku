@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chilku Baby 💕</title>
     <!-- Favicon - page icon -->
-    <link rel="icon" type="image/jpeg" href="photo5.jpeg">
+    <link rel="icon" type="image/jpeg" href="photo1.jpeg">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -426,6 +426,11 @@
                 height: 300px;
             }
 
+            /* Reduce blur on mobile for better performance */
+            .slide::before {
+                filter: blur(15px);
+            }
+
             .slide-caption {
                 font-size: 0.75rem;
                 bottom: 0;
@@ -452,6 +457,116 @@
             }
             50% {
                 transform: scale(1.05);
+            }
+        }
+
+        /* Custom Popup Modal */
+        .custom-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 40px 50px;
+            border-radius: 25px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            max-width: 90%;
+            max-width: 500px;
+            animation: popupAppear 0.3s ease-out;
+        }
+
+        @keyframes popupAppear {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .popup-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .popup-message {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 30px;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.5;
+        }
+
+        .popup-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            font-size: 1.1em;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);
+            transition: all 0.3s;
+        }
+
+        .popup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(118, 75, 162, 0.4);
+        }
+
+        /* Mobile Responsive Styles for Popup */
+        @media (max-width: 768px) {
+            .popup-content {
+                padding: 30px 25px;
+                max-width: 85%;
+            }
+
+            .popup-title {
+                font-size: 1.4em;
+            }
+
+            .popup-message {
+                font-size: 1.1em;
+                margin-bottom: 25px;
+            }
+
+            .popup-button {
+                font-size: 1em;
+                padding: 12px 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .popup-content {
+                padding: 25px 20px;
+            }
+
+            .popup-title {
+                font-size: 1.2em;
+            }
+
+            .popup-message {
+                font-size: 1em;
             }
         }
     </style>
@@ -483,6 +598,15 @@
     <audio id="backgroundMusic" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- Custom Popup -->
+    <div class="custom-popup" id="customPopup">
+        <div class="popup-content">
+            <div class="popup-title">Arun says...</div>
+            <div class="popup-message">Oh come on Chilku baby, pleeeeeezeeee say yes !!</div>
+            <button class="popup-button" onclick="closePopup()">OK</button>
+        </div>
+    </div>
 
     <!-- Photo Gallery -->
     <div class="gallery-container" id="gallery">
@@ -668,7 +792,11 @@
         }
 
         function sayNo() {
-            alert('Oh come on Chilku baby, pleeeeeezeeee say yes !!');
+            document.getElementById('customPopup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('customPopup').style.display = 'none';
         }
 
         function sayYes() {
